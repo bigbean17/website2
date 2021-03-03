@@ -1,0 +1,39 @@
+
+
+
+<form action="" method="POST">
+    {{ form.hidden_tag() }}
+    <h1>
+        Get a new Account<br>
+    </h1>
+
+    <p>
+        Username:
+        {{ form.username}}
+            
+        {% for err in form.username.errors %}
+            <span style="color: red;">{{ err }}</span>
+        {% endfor %}<br>
+
+    </p>
+    <p>
+        Password
+        {{ form.password}}
+        {% for err in form.password.errors %}
+            <span style="color: red;">{{ err }}</span>
+        {% endfor %}<br>
+    </p>
+
+    <p>
+        enter password again:
+        {{ form.check_pass}}
+        {% for err in form.check_pass.errors %}
+            <span style="color: red;">{{ err }}</span>
+        {% endfor %}<br>
+    </p>
+
+    <p>
+        {{ form.Register() }}
+    </p>
+
+</form>

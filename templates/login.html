@@ -1,0 +1,27 @@
+<h1>
+    Login
+</h1>
+
+<form action="" method="POST">
+    {{ form.hidden_tag() }}
+    <p>
+        Username:
+        {{ form.username }}<br>
+
+        {% for err in form.username.errors %}
+            <span style="color: red;">{{ err }}</span>
+        {% endfor %}
+    </p>
+
+    <p>
+        Password:
+        {{ form.password }}<br>
+
+        {% for err in form.username.password %}
+            <span style="color: red;">{{ err }}</span>
+        {% endfor %}
+    </p>
+
+    <p>
+        {{ form.Login() }}
+    </p>
