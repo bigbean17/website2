@@ -1,16 +1,16 @@
 
-
-
 <form action="" method="POST">
     {{ form.hidden_tag() }}
     <h1>
         Get a new Account<br>
     </h1>
 
+    {% include "popup.html" %}
+
     <p>
         Username:
         {{ form.username}}
-            
+
         {% for err in form.username.errors %}
             <span style="color: red;">{{ err }}</span>
         {% endfor %}<br>

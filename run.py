@@ -1,5 +1,5 @@
 from flask import Flask
-from server import app
+from server import app,db
 
 if __name__ == "__main__":
 
