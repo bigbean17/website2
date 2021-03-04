@@ -4,6 +4,9 @@
 
 <form action="" method="POST">
     {{ form.hidden_tag() }}
+
+    {% include "popup.html" %}
+
     <p>
         Username:
         {{ form.username }}<br>

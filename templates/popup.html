@@ -1,0 +1,13 @@
+{% with msg=get_flashed_messages() %}
+    {% if msg %}
+        <ul class=flashes>
+        {% for m in msg %}
+            {% if 'success' in m %}
+                <p style="color:green"> {{ m }} </p>
+            {% else %}
+                <p style="color:red"> {{m}} </p>
+            {% endif %}
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
