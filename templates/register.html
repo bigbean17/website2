@@ -1,9 +1,11 @@
+{% include "header.html" %}
+<h1>
+    Get a new Account<br>
+</h1>
 
 <form action="" method="POST">
     {{ form.hidden_tag() }}
-    <h1>
-        Get a new Account<br>
-    </h1>
+
 
     {% include "popup.html" %}
 
@@ -31,7 +33,7 @@
             <span style="color: red;">{{ err }}</span>
         {% endfor %}<br>
     </p>
-
+    Already have an account? <a href="login">Click me</a> to Login!
     <p>
         {{ form.Register() }}
     </p>

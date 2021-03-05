@@ -1,0 +1,10 @@
+{% include "header.html" %}
+
+<h1>
+{% if current_user.is_authenticated %}
+    Welcome to the forum!
+{% else %}
+    You must login First!
+{% endif %}
+</h1>
+

@@ -1,3 +1,4 @@
+{% include "header.html" %}
 <h1>
     Login
 </h1>
@@ -24,7 +25,9 @@
             <span style="color: red;">{{ err }}</span>
         {% endfor %}
     </p>
-
+    Don't have an account? <a href="register">Click me </a>to Register
     <p>
         {{ form.Login() }}
     </p>
+
+

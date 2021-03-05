@@ -1,6 +1,4 @@
-from server import app, db
-count_user = 0
-
+from server import app, db, lm
 class User(db.Model):
 
     id=db.Column(db.Integer, primary_key = True)
@@ -8,12 +6,27 @@ class User(db.Model):
     password = db.Column(db.String(50), nullable = False)
 
 
+    def is_authenticated(self):
+        return True
+
+    def is_active(self):
+        return True
+
+    def is_anonymous(self):
+        return False
+
+    
+    def get_id(self):
+        return self.id#Note that this must be a unicode - if the ID is natively an int or some other type, you will need to convert it to unicode. -- from flask doc
+    
+
 
 class Post(db.Model):
 
     id = db.Column(db.Integer, primary_key = True)
     content = db.Column(db.String(200), nullable = True, unique = False)
     uid = db.Column(db.Integer, db.ForeignKey("user.id"),nullable=False)
+
 
 
 
@@ -26,7 +39,10 @@ def register(username, password):
 
 def login(username,password):
 
-    user = db.session.query(User).filter_by(username=username,password=password).all()
-    if(user):
-        return True
-    return False
+    user = db.session.query(User).filter_by(username=username,password=password).first()
+    return user
+
+
+@lm.user_loader
+def load_user(id):
+    return db.session.query(User).filter_by(id=id).first()

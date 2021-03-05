@@ -3,6 +3,7 @@ from flask import render_template, redirect, flash, url_for, abort, request
 import models as md
 from form import RegistFrom, LoginForm
 from sqlalchemy  import exc
+from flask_login import login_required, login_user, logout_user
 
 @app.route("/")
 def index():
@@ -13,8 +14,9 @@ def index():
 def login():
     form_ = LoginForm()
     if form_.validate_on_submit():
-        if(md.login(form_.username.data,form_.password.data)):
-
+        user = md.login(form_.username.data,form_.password.data)
+        if(user):
+            login_user(user)
             return redirect(url_for("index"))
         else:
             flash("Warning: Wrong username or password")
@@ -36,3 +38,19 @@ def register():
             return render_template("register.html",form=form_)
 
     return render_template("register.html",form=form_)
+
+
+@app.route("/Post", methods = ["POST","GET"])
+def Post():
+
+    return render_template("Post.html")
+
+
+
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    flash("Logout success!")
+    return redirect(url_for("index"))
+
