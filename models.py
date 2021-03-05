@@ -25,7 +25,7 @@ class Post(db.Model):
 
     id = db.Column(db.Integer, primary_key = True)
     content = db.Column(db.String(200), nullable = True, unique = False)
-    uid = db.Column(db.Integer, db.ForeignKey("user.id"),nullable=False)
+    uname = db.Column(db.String(20), nullable = False)
 
 
 
@@ -42,6 +42,15 @@ def login(username,password):
     user = db.session.query(User).filter_by(username=username,password=password).first()
     return user
 
+def savePost(content,username):
+    post = Post(content=content,uname=username)
+    db.session.add(post)
+    db.session.commit()
+
+
+def getPosts():
+
+    return db.session.query(Post).all()
 
 @lm.user_loader
 def load_user(id):

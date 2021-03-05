@@ -1,10 +1,36 @@
 {% include "header.html" %}
 
 <h1>
-{% if current_user.is_authenticated %}
-    Welcome to the forum!
-{% else %}
+{% if not  current_user.is_authenticated %}
     You must login First!
+{% else %}
+    Welcome to the forum!   
+    </h1>
+
+    <p>
+
+        {% for p in posts %}
+            {{p.content}} -- {{p.uname}}<br>
+        {% endfor %}
+    </p>
+
+
+    <form action="" method="POST">
+        {{ form.hidden_tag() }}
+        {% include "popup.html" %}
+        <p>
+            
+
+            {{form.content}}
+            {% for err in form.content.errors %}
+                <span style="color: red;">{{ err }}</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{form.submit}}
+        </p>
+    </form>
+
 {% endif %}
-</h1>
 

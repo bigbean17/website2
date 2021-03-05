@@ -1,9 +1,9 @@
 from server import app
 from flask import render_template, redirect, flash, url_for, abort, request
 import models as md
-from form import RegistFrom, LoginForm
+from form import RegistFrom, LoginForm, PostForm
 from sqlalchemy  import exc
-from flask_login import login_required, login_user, logout_user
+from flask_login import login_required, login_user, logout_user, current_user
 
 @app.route("/")
 def index():
@@ -42,8 +42,14 @@ def register():
 
 @app.route("/Post", methods = ["POST","GET"])
 def Post():
+    form_ = PostForm()
+    if form_.validate_on_submit():
+        flash("Post success!")
+        md.savePost(form_.content.data,current_user.username)
+        return redirect(url_for('Post'))
 
-    return render_template("Post.html")
+    
+    return render_template("Post.html",form=form_, posts=md.getPosts())
 
 
 
