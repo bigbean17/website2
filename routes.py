@@ -53,6 +53,18 @@ def Post():
 
 
 
+@app.route("/user_list",methods=["POST","GET"])
+def user_list():
+    
+    users = md.getUsers()
+    return render_template("user_list.html", users = users)
+
+@app.errorhandler(404)
+def err_404(e):
+    return render_template("err_page.html"), 404
+
+
+
 @app.route("/logout")
 @login_required
 def logout():

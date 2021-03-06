@@ -1,7 +1,12 @@
 <body>
 <a href="/">Home</a>
 <a href="Post">Forum</a>
+
+{% if current_user.is_admin %}
+    <a href="user_list">user list</a>
+{% endif %}
+
 {% if current_user.is_authenticated %}
-    <a href="logout">logout</a>
+    <a href="logout">logout</a><br>
 {% endif %}
 </body>

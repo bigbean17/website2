@@ -4,6 +4,7 @@ class User(db.Model):
     id=db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(20), nullable = False, unique=True)
     password = db.Column(db.String(50), nullable = False)
+    is_admin = db.Column(db.Boolean, default=True)
 
 
     def is_authenticated(self):
@@ -32,7 +33,7 @@ class Post(db.Model):
 
 def register(username, password):
 
-    user = User(username=username,password=password)
+    user = User(username=username,password=password, is_admin=False)
     db.session.add(user)
     db.session.commit()
 
@@ -49,8 +50,12 @@ def savePost(content,username):
 
 
 def getPosts():
-
     return db.session.query(Post).all()
+
+def getUsers():
+    return db.session.query(User).all()
+
+
 
 @lm.user_loader
 def load_user(id):
