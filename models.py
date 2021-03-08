@@ -5,6 +5,8 @@ class User(db.Model):
     username = db.Column(db.String(20), nullable = False, unique=True)
     password = db.Column(db.String(50), nullable = False)
     is_admin = db.Column(db.Boolean, default=True)
+    is_muted = db.Column(db.Boolean, default=False)
+    is_blocked = db.Column(db.Boolean, default=False)
 
 
     def is_authenticated(self):
@@ -55,6 +57,9 @@ def getPosts():
 def getUsers():
     return db.session.query(User).all()
 
+def finduser(username):
+    user = db.session.query(User).filter_by(username=username).first()
+    return user
 
 
 @lm.user_loader

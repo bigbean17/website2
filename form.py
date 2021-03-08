@@ -23,3 +23,12 @@ class PostForm(FlaskForm):
     content = TextAreaField("content",validators=[DataRequired(),Length(max=500)])
     
     submit = SubmitField("submit")
+
+class createUserForm(FlaskForm):
+
+    username = StringField("username",validators=[DataRequired(),Length(min=3, max=20)])
+    password = PasswordField("password",validators=[DataRequired(),Length(min=8)])
+    check_pass = PasswordField("check_pass", validators=[DataRequired(),EqualTo('password')])
+    check_admin = PasswordField("check_admin",validators=[DataRequired()])
+    
+    create = SubmitField("create")

@@ -1,7 +1,7 @@
 from server import app
 from flask import render_template, redirect, flash, url_for, abort, request
 import models as md
-from form import RegistFrom, LoginForm, PostForm
+from form import RegistFrom, LoginForm, PostForm, createUserForm
 from sqlalchemy  import exc
 from flask_login import login_required, login_user, logout_user, current_user
 
@@ -58,6 +58,35 @@ def user_list():
     
     users = md.getUsers()
     return render_template("user_list.html", users = users)
+
+
+@app.route("/create_user",methods=["POST","GET"])
+def create_user():
+
+    form_ = createUserForm()
+
+
+    if form_.validate_on_submit():
+        
+        if(md.finduser(form_.username.data)):
+            flash("Warning: This name has been taken!")
+            return render_template("addUser.html",form=form_)
+
+        md.register(form_.username.data,form_.password.data)
+        if(form_.check_admin()!=1):
+
+            # TODO: lock this account if the code is wrong, don't store the code into the database
+            
+            flash("Warning: You have the last chance to enter the code, this account will be locked if the code is still wrong!")
+            return render_template("addUser.html",form=form_)
+        flash("Create User success!")
+        return redirect(url_for('create_user'))
+
+
+
+    return render_template("addUser.html",form=form_)
+
+    
 
 @app.errorhandler(404)
 def err_404(e):

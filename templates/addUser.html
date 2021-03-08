@@ -1,9 +1,7 @@
-{% include "header.html" %}
-<h1>
-    Get a new Account<br>
-</h1>
+
 
 <form action="" method="POST">
+
     {{ form.hidden_tag() }}
 
 
@@ -33,9 +31,19 @@
             <span style="color: red;">{{ err }}</span>
         {% endfor %}<br>
     </p>
-    Already have an account? <a href="login">Click me</a> to Login!
+
     <p>
-        {{ form.Register() }}
+        enter admin code:
+        {{ form.check_admin}}
+        {% for err in form.check_admin.errors %}
+            <span style="color: red;">{{ err }}</span>
+        {% endfor %}<br>
     </p>
 
+
+    <p>
+        {{form.create()}}
+    </p>
+
+    <a href="user_list">&lt;&lt; back</a>
 </form>
