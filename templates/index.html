@@ -1,21 +1,29 @@
 
 {% include "header.html" %}
-<h1>
-    HELLO
-    {% if current_user.is_authenticated %}
-        {{current_user.username}} !
-    {% else %}
-        World!
+
+{% if not current_user.is_blocked %}
+
+    <h1>
+        HELLO
+        {% if current_user.is_authenticated %}
+            {{current_user.username}} !
+        {% else %}
+            World!
+        {% endif %}
+    </h1>
+
+    {% if not current_user.is_authenticated %}
+        <a href="login">login</a>/
+        <a href="register">Register</a>/
     {% endif %}
-</h1>
 
-{% if not current_user.is_authenticated %}
-    <a href="login">login</a>/
-    <a href="register">Register</a>/
+    {% if current_user.is_authenticated %}
+        <a href="logout">logout</a>
+    {% endif %}
+
+    {% include "popup.html" %}
+
+{% else %}
+
+    You are blocked, you can't do anything with the website.
 {% endif %}
-
-{% if current_user.is_authenticated %}
-    <a href="logout">logout</a>
-{% endif %}
-
-{% include "popup.html" %}

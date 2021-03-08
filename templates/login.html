@@ -3,31 +3,37 @@
     Login
 </h1>
 
-<form action="" method="POST">
-    {{ form.hidden_tag() }}
+{% if not current_user.is_blocked %}
 
-    {% include "popup.html" %}
+    <form action="" method="POST">
+        {{ form.hidden_tag() }}
 
-    <p>
-        Username:
-        {{ form.username }}<br>
+        {% include "popup.html" %}
 
-        {% for err in form.username.errors %}
-            <span style="color: red;">{{ err }}</span>
-        {% endfor %}
-    </p>
+        <p>
+            Username:
+            {{ form.username }}<br>
 
-    <p>
-        Password:
-        {{ form.password }}<br>
+            {% for err in form.username.errors %}
+                <span style="color: red;">{{ err }}</span>
+            {% endfor %}
+        </p>
 
-        {% for err in form.username.password %}
-            <span style="color: red;">{{ err }}</span>
-        {% endfor %}
-    </p>
-    Don't have an account? <a href="register">Click me </a>to Register
-    <p>
-        {{ form.Login() }}
-    </p>
+        <p>
+            Password:
+            {{ form.password }}<br>
 
+            {% for err in form.username.password %}
+                <span style="color: red;">{{ err }}</span>
+            {% endfor %}
+        </p>
+        Don't have an account? <a href="register">Click me </a>to Register
+        <p>
+            {{ form.Login() }}
+        </p>
+
+{% else %}
+
+    You are blocked, you can't do anything with the website.
+{% endif %}
 

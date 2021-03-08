@@ -62,6 +62,18 @@ def finduser(username):
     return user
 
 
+def muteBlockUser(username,action):
+
+    user = finduser(username)
+    if(action == "mute"):
+        user.is_muted = True
+    elif (action == "block"):
+        user.is_blocked=True
+    elif (action == "delete"):
+        db.session.delete(user)
+    
+    db.session.commit()
+
 @lm.user_loader
 def load_user(id):
     return db.session.query(User).filter_by(id=id).first()

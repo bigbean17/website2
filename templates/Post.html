@@ -1,36 +1,44 @@
 {% include "header.html" %}
 
-<h1>
-{% if not  current_user.is_authenticated %}
-    You must login First!
-{% else %}
-    Welcome to the forum!   
-    </h1>
 
-    <p>
+{% if not current_user.is_blocked %}
+    <h1>
+    {% if not current_user.is_authenticated %}
+        You must login First!
+    {% elif current_user.is_muted %}
+        You are muted!
+    {% else %}
+        Welcome to the forum!   
+        </h1>
 
-        {% for p in posts %}
-            {{p.content}} -- {{p.uname}}<br>
-        {% endfor %}
-    </p>
-
-
-    <form action="" method="POST">
-        {{ form.hidden_tag() }}
-        {% include "popup.html" %}
         <p>
-            
 
-            {{form.content}}
-            {% for err in form.content.errors %}
-                <span style="color: red;">{{ err }}</span>
+            {% for p in posts %}
+                {{p.content}} -- {{p.uname}}<br>
             {% endfor %}
         </p>
 
-        <p>
-            {{form.submit}}
-        </p>
-    </form>
 
+        <form action="" method="POST">
+            {{ form.hidden_tag() }}
+            {% include "popup.html" %}
+            <p>
+                
+
+                {{form.content}}
+                {% for err in form.content.errors %}
+                    <span style="color: red;">{{ err }}</span>
+                {% endfor %}
+            </p>
+
+            <p>
+                {{form.submit}}
+            </p>
+        </form>
+
+    {% endif %}
+
+{% else %}
+
+    You are blocked, you can't do anything with the website.
 {% endif %}
-

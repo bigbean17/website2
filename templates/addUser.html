@@ -1,49 +1,54 @@
 
+{% if current_user.is_admin %}
 
-<form action="" method="POST">
+    <form action="" method="POST">
 
-    {{ form.hidden_tag() }}
-
-
-    {% include "popup.html" %}
-
-    <p>
-        Username:
-        {{ form.username}}
-
-        {% for err in form.username.errors %}
-            <span style="color: red;">{{ err }}</span>
-        {% endfor %}<br>
-
-    </p>
-    <p>
-        Password: 
-        {{ form.password}}
-        {% for err in form.password.errors %}
-            <span style="color: red;">{{ err }}</span>
-        {% endfor %}<br>
-    </p>
-
-    <p>
-        enter password again:
-        {{ form.check_pass}}
-        {% for err in form.check_pass.errors %}
-            <span style="color: red;">{{ err }}</span>
-        {% endfor %}<br>
-    </p>
-
-    <p>
-        enter admin code:
-        {{ form.check_admin}}
-        {% for err in form.check_admin.errors %}
-            <span style="color: red;">{{ err }}</span>
-        {% endfor %}<br>
-    </p>
+        {{ form.hidden_tag() }}
 
 
-    <p>
-        {{form.create()}}
-    </p>
+        {% include "popup.html" %}
 
-    <a href="user_list">&lt;&lt; back</a>
-</form>
+        <p>
+            Username:
+            {{ form.username}}
+
+            {% for err in form.username.errors %}
+                <span style="color: red;">{{ err }}</span>
+            {% endfor %}<br>
+
+        </p>
+        <p>
+            Password: 
+            {{ form.password}}
+            {% for err in form.password.errors %}
+                <span style="color: red;">{{ err }}</span>
+            {% endfor %}<br>
+        </p>
+
+        <p>
+            enter password again:
+            {{ form.check_pass}}
+            {% for err in form.check_pass.errors %}
+                <span style="color: red;">{{ err }}</span>
+            {% endfor %}<br>
+        </p>
+
+        <p>
+            enter admin code:
+            {{ form.check_admin}}
+            {% for err in form.check_admin.errors %}
+                <span style="color: red;">{{ err }}</span>
+            {% endfor %}<br>
+        </p>
+
+
+        <p>
+            {{form.create()}}
+        </p>
+
+        <a href="user_list">&lt;&lt; back</a>
+    </form>
+{% else %}
+    <meta http-equiv = "refresh" content = "0; url = err_page.html" />
+
+{% endif %}

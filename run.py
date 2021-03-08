@@ -15,5 +15,6 @@ References:
     https://flask.palletsprojects.com/en/1.1.x/patterns/errorpages/    Error handling
     https://www.w3schools.com/tags/tag_select.asp  Dropdown list
     https://www.w3school.com.cn/html/html_entities.asp 大于号
+    https://www.tutorialspoint.com/How-to-redirect-from-an-HTML-page  html redirct to other html
 
 '''

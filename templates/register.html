@@ -2,40 +2,44 @@
 <h1>
     Get a new Account<br>
 </h1>
+{% if not current_user.is_blocked %}
+    <form action="" method="POST">
+        {{ form.hidden_tag() }}
 
-<form action="" method="POST">
-    {{ form.hidden_tag() }}
 
+        {% include "popup.html" %}
 
-    {% include "popup.html" %}
+        <p>
+            Username:
+            {{ form.username}}
 
-    <p>
-        Username:
-        {{ form.username}}
+            {% for err in form.username.errors %}
+                <span style="color: red;">{{ err }}</span>
+            {% endfor %}<br>
 
-        {% for err in form.username.errors %}
-            <span style="color: red;">{{ err }}</span>
-        {% endfor %}<br>
+        </p>
+        <p>
+            Password: 
+            {{ form.password}}
+            {% for err in form.password.errors %}
+                <span style="color: red;">{{ err }}</span>
+            {% endfor %}<br>
+        </p>
 
-    </p>
-    <p>
-        Password: 
-        {{ form.password}}
-        {% for err in form.password.errors %}
-            <span style="color: red;">{{ err }}</span>
-        {% endfor %}<br>
-    </p>
+        <p>
+            enter password again:
+            {{ form.check_pass}}
+            {% for err in form.check_pass.errors %}
+                <span style="color: red;">{{ err }}</span>
+            {% endfor %}<br>
+        </p>
+        Already have an account? <a href="login">Click me</a> to Login!
+        <p>
+            {{ form.Register() }}
+        </p>
 
-    <p>
-        enter password again:
-        {{ form.check_pass}}
-        {% for err in form.check_pass.errors %}
-            <span style="color: red;">{{ err }}</span>
-        {% endfor %}<br>
-    </p>
-    Already have an account? <a href="login">Click me</a> to Login!
-    <p>
-        {{ form.Register() }}
-    </p>
+    </form>
+{% else %}
 
-</form>
+    You are blocked, you can't do anything with the website.
+{% endif %}

@@ -1,22 +1,41 @@
 
 {% include "header.html" %}
 
+{% if current_user.is_admin %}
+    <h1>
+        User list <a style="color: red;">(for admin user only)</a>
+    </h1>
 
-<h1>
-    User list <a style="color: red;">(for admin user only)</a>
-</h1>
-
-
-
-
-<form action="", method="POST">
-
-    <select>
-        {% for u in users %}
-            <option>{{u.username}}</option>
-        {% endfor %}
-    </select>
-</form>
+    {% include "popup.html" %}
 
 
-<a href="create_user">create users</a>
+    <form action="", method="POST">
+        
+        Username:
+        <select name="username">
+            {% for u in users %}
+                <option>{{u.username}}</option>
+            {% endfor %}
+        </select>
+
+        Action:
+        <select name="action">
+            {% for a in action %}
+                <option>{{a}}</option>
+            {% endfor %}
+        </select>
+
+
+        <input type="submit" value="confirm" >
+
+    </form>
+
+
+
+    <a href="create_user">create users</a>
+
+
+{% else %}
+    <meta http-equiv = "refresh" content = "0; url = err_page.html" />
+
+{% endif %}

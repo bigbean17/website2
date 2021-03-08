@@ -55,30 +55,47 @@ def Post():
 
 @app.route("/user_list",methods=["POST","GET"])
 def user_list():
-    
+    action_list = ['delete', 'mute', 'block']
     users = md.getUsers()
-    return render_template("user_list.html", users = users)
+    if(request.method=="GET"):
+        return render_template("user_list.html", users = users, action=action_list)
+    else:
+        
+        username=request.form["username"]
+        action = request.form["action"]
+
+        md.muteBlockUser(username,action)
+        flash(action+" success!")
+        users = md.getUsers()
+        
+        return render_template("user_list.html", users = users, action=action_list)
+        
 
 
 @app.route("/create_user",methods=["POST","GET"])
 def create_user():
-
+    action_list = ['delete', 'mute', 'block']
     form_ = createUserForm()
 
 
     if form_.validate_on_submit():
+
+
+        if(form_.check_admin.data!='1'):
+
+            # TODO: lock this account if the code is wrong, don't store the code into the database
+            users = md.getUsers()
+            flash("Warning: You have the last chance to enter the code, this account will be locked if the code is still wrong!")
+            return render_template("user_list.html",users=users, action= action_list)
+
+
         
         if(md.finduser(form_.username.data)):
             flash("Warning: This name has been taken!")
             return render_template("addUser.html",form=form_)
 
         md.register(form_.username.data,form_.password.data)
-        if(form_.check_admin()!=1):
-
-            # TODO: lock this account if the code is wrong, don't store the code into the database
-            
-            flash("Warning: You have the last chance to enter the code, this account will be locked if the code is still wrong!")
-            return render_template("addUser.html",form=form_)
+       
         flash("Create User success!")
         return redirect(url_for('create_user'))
 
